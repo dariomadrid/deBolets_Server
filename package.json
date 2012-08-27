@@ -14,7 +14,7 @@
   "homepage": "http://www.debolets.cat",
   "repository": {
     "type": "git",
-    "url": "https://gitub.com/occasl/mongodb-poc"
+    "url": "https://github.com/dariomadrid/deBolets_Server.git"
   },
 
   "engines": {
@@ -23,6 +23,7 @@
   },
 
   "dependencies": {
+	"mongodb": ">= 0.9.7-3-5",
     "mongoose": "3.0.0",
     "express": "3.0.0rc2",
 	"passport": ">= 0.1.12",
