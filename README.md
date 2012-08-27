@@ -11,3 +11,9 @@ C:\mongoDB\bin>mongoimport --db api2 --collection caceras --file c:\data_web\api
 C:\mongoDB\bin>mongoimport --db api2 --collection users --file c:\data_web\api2\users.json --jsonArray
 
 
+GIT
+===
+
+git add file
+git commit -a
+git push (usuari i pwd).
