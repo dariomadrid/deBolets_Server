@@ -21,7 +21,7 @@ var dbpwd   = process.env.OPENSHIFT_NOSQL_DB_PASSWORD;
 
 ipaddr = "localhost";
 
-// Establish connection to MongoDB
+// Establish connection to MongoDB 
 //mongoose.connect('mongodb://'+dbuname+':'+dbpwd+'@'+dbhost+':'+dbport+'/nodetest');
 mongoose.connect(dbhost);
 //mongoose.connect('mongodb://localhost/api2');
