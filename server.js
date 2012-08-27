@@ -13,7 +13,7 @@ var flash = require('connect-flash');
 
 //  Get the environment variables we need.
 var ipaddr  = process.env.OPENSHIFT_INTERNAL_IP;
-var port    = process.env.OPENSHIFT_INTERNAL_PORT || 80;
+var port    = 14241;
 var dbhost  = process.env.OPENSHIFT_NOSQL_DB_HOST;
 var dbport  = process.env.OPENSHIFT_NOSQL_DB_PORT;
 var dbuname = process.env.OPENSHIFT_NOSQL_DB_USERNAME;
