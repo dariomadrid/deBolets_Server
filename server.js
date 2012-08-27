@@ -14,7 +14,7 @@ var flash = require('connect-flash');
 //  Get the environment variables we need.
 var ipaddr  = process.env.OPENSHIFT_INTERNAL_IP;
 var port    = process.env.PORT || 3000;
-var dbhost  = process.env.OPENSHIFT_NOSQL_DB_HOST;
+var dbhost  = process.env.MONGOHQ_URL;
 var dbport  = process.env.OPENSHIFT_NOSQL_DB_PORT;
 var dbuname = process.env.OPENSHIFT_NOSQL_DB_USERNAME;
 var dbpwd   = process.env.OPENSHIFT_NOSQL_DB_PASSWORD;
@@ -23,7 +23,8 @@ ipaddr = "localhost";
 
 // Establish connection to MongoDB
 //mongoose.connect('mongodb://'+dbuname+':'+dbpwd+'@'+dbhost+':'+dbport+'/nodetest');
-mongoose.connect('mongodb://localhost/api2');
+mongoose.connect(dbhost);
+//mongoose.connect('mongodb://localhost/api2');
 
 app.configure(function () {
 	/*AUTH SIMPLE*/
