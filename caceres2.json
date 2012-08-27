@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "nom": "Cacera num 1",
+        "info": "Descripció cacera 1",
+        "logo": "http://localhost:3000/images/caceres/1.jpg",
+		"datahora": "1334015279000"
+    },
+    {
+        "id": 2,
+        "nom": "Cacera num 2",
+        "info": "Descripció cacera 2",
+        "logo": "http://localhost:3000/images/caceres/2.jpg",
+		"datahora": "1334706479000"
+    },
+    {
+        "id": 3,
+        "nom": "Cacera num 3",
+        "info": "Descripció cacera 3",
+        "logo": "http://localhost:3000/images/caceres/3.jpg",
+		"datahora": "1340005679000"
+    },
+    {
+        "id": 4,
+        "nom": "Cacera num 4",
+        "info": "Descripció cacera 4",
+        "logo": "http://localhost:3000/images/caceres/4.jpg",
+		"datahora": "1341049679000"
+    },
+    {
+        "id": 5,
+        "nom": "Cacera num 5",
+        "info": "Descripció cacera 5",
+        "logo": "http://localhost:3000/images/caceres/5.jpg",
+		"datahora": "1341208079000"
+    },
+    {
+        "id": 6,
+        "nom": "Cacera num 6",
+        "info": "Descripció cacera 6",
+        "logo": "http://localhost:3000/images/caceres/6.jpg",
+		"datahora": "1342054079000"
+    },
+    {
+        "id": 7,
+        "nom": "Cacera num 7",
+        "info": "Descripció cacera 7",
+        "logo": "http://localhost:3000/images/caceres/7.jpg",
+		"datahora": "1343774879000"
+    },
+    {
+        "id": 8,
+        "nom": "Cacera num 8",
+        "info": "Descripció cacera 8",
+        "logo": "http://localhost:3000/images/caceres/8.jpg",
+		"datahora": "1345416479000"
+    },
+    {
+        "id": 9,
+        "nom": "Cacera num 9",
+        "info": "Descripció cacera 9",
+        "logo": "http://localhost:3000/images/caceres/9.jpg",
+		"datahora": "1345926183722"
+    },
+    {
+        "id": 10,
+        "nom": "Cacera num 10",
+        "info": "Descripció cacera 10",
+        "logo": "http://localhost:3000/images/caceres/10.jpg",
+		"datahora": "1345934596000"
+    }
+]

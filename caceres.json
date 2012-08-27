@@ -1,0 +1,16 @@
+﻿[
+    {
+        "id": 11,
+        "nom": "Cacera num 11",
+        "info": "Descripció cacera 11",
+        "logo": "http://localhost:3000/images/caceres/1.jpg",
+		"datahora": "1345934606000"
+    },
+    {
+        "id": 12,
+        "nom": "Cacera num 12",
+        "info": "Descripció cacera 12",
+        "logo": "http://localhost:3000/images/caceres/2.jpg",
+		"datahora": "1345934626000"
+    }
+]

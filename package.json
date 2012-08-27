@@ -1,0 +1,36 @@
+{
+  "name": "API deBolets",
+  "version": "0.0.1",
+  "description": "API deBolets (nodejs-mongodb)",
+  "keywords": [
+    "OpenShift",
+    "Node.js",
+    "application",
+    "openshift"
+  ],
+  "author": {
+    "name": "Darío Madrid",
+    "email": "dariomadrid@gmail.com",
+    "url":  "http://www.debolets.cat"
+  },
+  "homepage": "http://pettracker-loutilities.rhcloud.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://gitub.com/occasl/mongodb-poc"
+  },
+
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+
+  "dependencies": {
+    "mongoose": "3.0.0",
+    "express": "3.0.0rc2"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+
+  "private": true,
+  "main": "server.js"
+}
