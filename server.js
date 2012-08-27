@@ -188,6 +188,7 @@ app.get('/api', function(req, res){
 
 
 //  And start the app on that interface (and port).
-app.listen(port, ipaddr, function() {
-   console.log('%s: API deBolets Node server started on %s:%d ...', Date(Date.now() ),ipaddr, port);
+//app.listen(port, ipaddr, function() {
+app.listen(port, function() {
+   console.log('%s: API deBolets Node server listening on %s:%d ...', Date(Date.now() ),port);
 });
