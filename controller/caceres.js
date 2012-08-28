@@ -1,11 +1,11 @@
 var CaceraModel = require('../model/cacera.js');
 
 exports.post = function(req, res) {
-    var cacera = new CaceraModel({name: req.body.name, description: req.body.descr,
-        longitude: req.body.longitude, latitude: req.body.latitude});
+	console.log("POST: Creació cacera.");
+    var cacera = new CaceraModel({id: req.body.id, nom: req.body.nom, info: req.body.info, logo: req.body.logo, datahora: req.body.datahora});
     cacera.save(function (err) {
         if (err) throw err;
-        console.log('Task saved.');
+        console.log('Cacera saved.');
         
         res.send('Cacera saved.');
     });

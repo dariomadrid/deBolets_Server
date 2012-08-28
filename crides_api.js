@@ -10,6 +10,15 @@ jQuery.get("/api/caceres/502ea56ae4b1607e1b000007/500976b2b7b30e0000000017", fun
 // fins a: 500976b2b7b30e0000000017
 
 /* CREAR CACERES */
+jQuery.post("http://debolets.herokuapp.com/api/caceres?api_key=touch2", {
+  "id": "1",
+  "nom": "Cacera num 1",
+  "info": "Detalls i descripció de la cacera número 1.",
+  "logo": "http://localhost:3000/images/caceres/1.jpg",
+  "datahora": "1334015279000"
+}, function (data, textStatus, jqXHR) {
+    console.log("Post response:"); console.dir(data); console.log(textStatus); console.dir(jqXHR);
+});
 
 jQuery.post("http://debolets.herokuapp.com/api/caceres?api_key=touch2", {
   "id": "1",
@@ -20,6 +29,29 @@ jQuery.post("http://debolets.herokuapp.com/api/caceres?api_key=touch2", {
 }, function (data, textStatus, jqXHR) {
     console.log("Post response:"); console.dir(data); console.log(textStatus); console.dir(jqXHR);
 },'jsonp');
+
+jQuery.ajax({
+  type: 'POST',
+  url: "http://debolets.herokuapp.com/api/caceres?api_key=touch2",
+  data: {
+	  "id": "1",
+	  "nom": "Cacera num 1",
+	  "info": "Detalls i descripció de la cacera número 1.",
+	  "logo": "http://localhost:3000/images/caceres/1.jpg",
+	  "datahora": "1334015279000"
+	},
+  success: function (data, textStatus, jqXHR) {
+		console.log("Post response:"); console.dir(data); console.log(textStatus); console.dir(jqXHR);
+	},
+  error : function (data, textStatus, jqXHR) {
+		console.log("Post response:"); console.dir(data); console.log(textStatus); console.dir(jqXHR);
+	},
+  complete : function (data, textStatus, jqXHR) {
+		console.log("Post response:"); console.dir(data); console.log(textStatus); console.dir(jqXHR);
+	},
+  dataType: 'jsonp'
+});
+
 jQuery.post("/api/caceres?api_key=touch2", {
   "id": "1928293-2",
   "nom": "Cacera XXXX1",
