@@ -43,6 +43,12 @@ app.configure(function () {
     //app.use(app.router);	//el deshabilito d'aqui xq el carrego més endavant
 });
 
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 /* create an error with .status. we
  can then use the property in our
  custom error handler (Connect repects this prop as well)*/
