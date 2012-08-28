@@ -11,6 +11,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
 var flash = require('connect-flash');
 
+var MONGOHQ_URL="mongodb://debolets:debolets@alex.mongohq.com:10082/app7069372";
+
 //  Get the environment variables we need.
 var ipaddr  = process.env.OPENSHIFT_INTERNAL_IP;
 var port    = process.env.PORT || 3000;
@@ -23,6 +25,7 @@ ipaddr = "localhost";
 
 // Establish connection to MongoDB 
 //mongoose.connect('mongodb://'+dbuname+':'+dbpwd+'@'+dbhost+':'+dbport+'/nodetest');
+console.log(dbhost);
 mongoose.connect(dbhost);
 //mongoose.connect('mongodb://localhost/api2');
 
