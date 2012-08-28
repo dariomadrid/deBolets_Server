@@ -86,7 +86,7 @@ app.all('/api/*', function(req, res, next) {
   next();
 });
 
-app.post('/api/caceres/', api_caceres.post);
+app.post('/api/caceres/', api_caceres.save);
 app.get('/api/caceres/:lon/:lat/:dist?', api_caceres.near);
 app.get('/api/caceres/:name/:descr/:latitude/:longitude?', api_caceres.save);
 app.get('/api/caceres/:id/:format?', api_caceres.show);
