@@ -43,11 +43,6 @@ app.configure(function () {
     //app.use(app.router);	//el deshabilito d'aqui xq el carrego més endavant
 });
 
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
 
 /* create an error with .status. we
  can then use the property in our
@@ -84,6 +79,13 @@ app.use(app.router);
 
 // set up the RESTful API, handler methods are defined in api.js [CACERES]
 var api_caceres = require('./controller/caceres.js');
+
+app.all('/api/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 app.post('/api/caceres/', api_caceres.post);
 app.get('/api/caceres/:lon/:lat/:dist?', api_caceres.near);
 app.get('/api/caceres/:name/:descr/:latitude/:longitude?', api_caceres.save);
