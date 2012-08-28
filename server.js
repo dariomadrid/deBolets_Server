@@ -25,8 +25,8 @@ ipaddr = "localhost";
 
 // Establish connection to MongoDB 
 //mongoose.connect('mongodb://'+dbuname+':'+dbpwd+'@'+dbhost+':'+dbport+'/nodetest');
-console.log(dbhost);
-mongoose.connect(dbhost);
+console.log(MONGOHQ_URL);
+mongoose.connect(MONGOHQ_URL);
 //mongoose.connect('mongodb://localhost/api2');
 
 app.configure(function () {
