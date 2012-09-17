@@ -28,8 +28,8 @@ ipaddr = "localhost";
 // Establish connection to MongoDB 
 //mongoose.connect('mongodb://'+dbuname+':'+dbpwd+'@'+dbhost+':'+dbport+'/nodetest');
 console.log(MONGOHQ_URL);
-//mongoose.connect(MONGOHQ_URL);
-mongoose.connect('mongodb://localhost/api2');
+mongoose.connect(MONGOHQ_URL);
+//mongoose.connect('mongodb://localhost/api2');
 
 app.configure(function () {
 	/*AUTH SIMPLE*/
@@ -108,9 +108,10 @@ app.get('/api/comunitat', api_caceres.list_comunitat);								//Lista caceres pú
 // rutes per RESTful API, els mètodes estan definits a controller/users.js
 var api_users = require('./controller/users.js');
 
-app.get('/api/users/:id', api_users.show);									//Mostra la info de la cacera id. Requereix authenticació usuari.
+app.get('/api/users/:id', api_users.show);									//Mostra la info de l'usuari id. Requereix authenticació usuari.
 /*app.get('/api/users', api_users.list);*/									
-app.delete('/api/users/:id', api_caceres.users);							//Esborra l'usuari id
+app.delete('/api/users/:id', api_users.users);							//Esborra l'usuari id
+app.post('/api/users', api_users.save);									//Crea la cacera id
 app.get('/api/esborrar_users', api_users.delete);							//Esborra tots els usuaris. Requereix validació especial
 
 /* Passport session setup.
