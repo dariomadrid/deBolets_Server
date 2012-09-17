@@ -12,14 +12,13 @@ var User = new Schema({
 
 User.method('verifyPassword', function(password, callback) {
   //bcrypt.compare(password, this.hash, callback);
-	console.log(this.password);
-	return callback(null,true);
+	return callback(null,this.password==password);
 });
 
 User.static('authenticate', function(email, password, callback) {
 	this.findOne({ email: email }, function(err, user) {
 		if (err) { return callback(err); }
-		if (!user) { return callback("Usuari no trobat", false); }
+		if (!user) { return callback("error_usuari_no_trobat", false); }
 		user.verifyPassword(password, function(err, passwordCorrect) {
 			if (err) { return callback(err); }
         	if (!passwordCorrect) { return callback("error_password", false); }

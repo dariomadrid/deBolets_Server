@@ -1,7 +1,7 @@
-#!/bin/env node
 
 var express = require('express');
 var mongoose = require('mongoose');
+
 var app = express();
 /* AUTH SIMPLE
 var hash = require('./pass').hash;
@@ -21,13 +21,15 @@ var dbport  = process.env.OPENSHIFT_NOSQL_DB_PORT;
 var dbuname = process.env.OPENSHIFT_NOSQL_DB_USERNAME;
 var dbpwd   = process.env.OPENSHIFT_NOSQL_DB_PASSWORD;
 
+var token;
+
 ipaddr = "localhost";
 
 // Establish connection to MongoDB 
 //mongoose.connect('mongodb://'+dbuname+':'+dbpwd+'@'+dbhost+':'+dbport+'/nodetest');
 console.log(MONGOHQ_URL);
-mongoose.connect(MONGOHQ_URL);
-//mongoose.connect('mongodb://localhost/api2');
+//mongoose.connect(MONGOHQ_URL);
+mongoose.connect('mongodb://localhost/api2');
 
 app.configure(function () {
 	/*AUTH SIMPLE*/
@@ -41,7 +43,11 @@ app.configure(function () {
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs');
     //app.use(app.router);	//el deshabilito d'aqui xq el carrego més endavant
+	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
+
+var email_controller = require('./controller/email.js');
+//email_controller.send_mail_nou_usuari("David Mayo","password","dariomadrid@gmail.com");
 
 
 /* create an error with .status. we
@@ -61,13 +67,13 @@ var apiKeys = ['touch2', 'web'];
 //Valida l'api key d'on prové les caceres
 app.use('/api', function(req, res, next){
 	var key = req.query['api_key'];
+//	console.log("api="+req.query['api_key']);
 	// key isnt present
 	if (!key) return next(error(400, 'api key required'));
 	// key is invalid
 	if (!~apiKeys.indexOf(key)) return next(error(401, 'invalid api key'));
 	// all good, store req.key for route access
 	req.key = key;
-	console.log(key);
 	next();
 });
 
@@ -76,30 +82,36 @@ app.use('/api', function(req, res, next){
  to take place BEFORE our routes*/
 app.use(app.router);
 
-
-// set up the RESTful API, handler methods are defined in api.js [CACERES]
-var api_caceres = require('./controller/caceres.js');
-
 app.all('/api/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+//  res.header("Access-Control-Request-Method", "POST,GET");
+//  res.header('Content-Type', 'application/json');
   next();
 });
 
-app.post('/api/caceres/', api_caceres.save);
-app.get('/api/caceres/:lon/:lat/:dist?', api_caceres.near);
-app.get('/api/caceres/:name/:descr/:latitude/:longitude?', api_caceres.save);
-app.get('/api/caceres/:id/:format?', api_caceres.show);
-app.get('/api/caceres', api_caceres.list);
-app.get('/api/caceres2', api_caceres.list2);
-app.get('/api/esborrar_caceres', api_caceres.esborrar);
-app.delete('/api/caceres', api_caceres.delete);
+// [CACERES]
+// rutes per RESTful API, els mètodes estan definits a controller/caceres.js
+var api_caceres = require('./controller/caceres.js');
 
-// set up the RESTful API, handler methods are defined in api.js [USERS]
+app.get('/api/caceres', api_caceres.list);									//Llista de caceres
+app.get('/api/caceres/:user_id', api_caceres.list_usuari);					//Llista de caceres per usuari
+app.post('/api/caceres', api_caceres.save);									//Crea la cacera id
+app.put('/api/caceres/:id', api_caceres.put);								//Actualitza la cacera id
+app.delete('/api/caceres/:id', api_caceres.delete);							//Esborra la cacera id
+app.get('/api/esborrar_caceres/:user_id', api_caceres.delete_all_per_user);	//Esborra totes les caceres per usuari
+
+app.get('/api/comunitat', api_caceres.list_comunitat);								//Lista caceres públiques
+
+// [USERS]
+// rutes per RESTful API, els mètodes estan definits a controller/users.js
 var api_users = require('./controller/users.js');
-app.get('/api/users/:id/:format?', api_users.show);
-app.get('/api/users', api_users.list);
-app.get('/api/esborrar_users', api_users.delete);
+
+app.get('/api/users/:id', api_users.show);									//Mostra la info de la cacera id. Requereix authenticació usuari.
+/*app.get('/api/users', api_users.list);*/									
+app.delete('/api/users/:id', api_caceres.users);							//Esborra l'usuari id
+app.get('/api/esborrar_users', api_users.delete);							//Esborra tots els usuaris. Requereix validació especial
 
 /* Passport session setup.
    To support persistent login sessions, Passport needs to be able to
@@ -163,7 +175,8 @@ passport.use(new LocalStrategy({
    login page.*/
 function ensureAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) { return next(); }
-	res.send('error_no_logat');
+	//res.send('error_no_logat');
+	res.send(JSON.stringify({ "authorized": false }));
 }
 
 app.get('/', function(req, res){
@@ -174,8 +187,22 @@ app.get('/account', ensureAuthenticated, function(req, res){
   res.render('account', { user: req.user });
 });
 
+app.get('/restricted', ensureAuthenticated, function(req, res){
+  	//res.render('login', { user: req.user, message: req.flash('error') });
+	res.send(JSON.stringify({ "authorized": true }));
+});
+
+app.get('/login2', function(req, res){
+  	res.render('login', { user: req.user, message: req.flash('error') });
+});
+
+
 app.get('/login', function(req, res){
-  res.render('login', { user: req.user, message: req.flash('error') });
+  	//res.render('login', { user: req.user, message: req.flash('error') });
+	if (!token) {
+		token = Math.floor(Math.random() * 100);
+	}
+	res.send(JSON.stringify({ "token": token }));
 });
 
 app.post('/login', 
@@ -185,7 +212,7 @@ app.post('/login',
 		//res.render('index', { user: req.user });
 		//res.render('account', { user: req.user });
 		console.log(req.user._id);
-//		res.send("")
+		res.send(req.user);
 });
 
 app.get('/logout', function(req, res){
@@ -193,6 +220,30 @@ app.get('/logout', function(req, res){
 	res.send("logout ok");
 });
 
+app.get('/ping', function (req, res) {
+	res.writeHead(200, { 'Content-Type': 'application/json' }); 
+    //res.send(req.query["callback"] +'({"result":' + JSON.stringify("ok") + '});');
+	//var document = {pong: true};
+	//res.write(JSON.stringify(document));
+	//res.end();
+//	res.send({ "pong": "true" }, 200);
+	res.write(JSON.stringify({ "pong": true }));
+	res.end();
+});
+
+app.get('/pong', function (req, res) {
+	res.writeHead(200, { 'Content-Type': 'application/json' }); 
+    res.write(JSON.stringify({ "pong": false }));
+	res.end();
+});
+
+app.post('/tests', function(req, res) { 
+	console.log(req.params);
+	console.log(req.body.data);
+	res.writeHead(200, { 'Content-Type': 'application/json' }); 
+	res.write(JSON.stringify({ "usuari": req.body.usuari }));
+	res.end();
+});
 
 app.get('/api', function(req, res){
 	res.send("API deBolets v1.0");
@@ -201,6 +252,15 @@ app.get('/api', function(req, res){
 
 //  And start the app on that interface (and port).
 //app.listen(port, ipaddr, function() {
+exports.startServer = function (port) {
+	app.listen(port, function() {
+	   console.log('%s: API deBolets Node server listening on %s:%d ...', Date(Date.now() ),port);
+	});
+}
+
+exports.startServer(port);
+/*
 app.listen(port, function() {
    console.log('%s: API deBolets Node server listening on %s:%d ...', Date(Date.now() ),port);
 });
+*/

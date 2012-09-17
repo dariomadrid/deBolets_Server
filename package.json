@@ -29,8 +29,14 @@
 	"passport": ">= 0.1.12",
 	"passport-local": ">= 0.1.6",
 	"connect-flash": ">= 0.1.0",
-	"ejs": ">= 0.8.2"
+	"ejs": ">= 0.8.2",
+	"api-easy": "0.2.x"
   },
+
+   "scripts": {
+     "test": "vows test/*-test.js"
+   },
+
   "devDependencies": {},
   "bundleDependencies": [],
 

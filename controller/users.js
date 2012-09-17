@@ -15,9 +15,9 @@ exports.list = function(req, res) {
 exports.show = (function(req, res) {
     UserModel.findOne({_id: req.params.id}, function(error, user) {
         console.log(user);
-		res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
-		res.send(req.query["callback"] +'({"records":' + JSON.stringify(user) + '});');
-		//res.send([{Dog: Cacera}]);
+		//res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
+		//res.send(req.query["callback"] +'({"records":' + JSON.stringify(user) + '});');
+		res.send([{User: user}]);
     })
 });
 

@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "nom": "Cacera num 1",
+        "info": "Descripció cacera 1",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets.jpg",
+		"datahora": "1334015279000",
+		"publica" : true,
+		"_usuari": "504307f410f5cd2ef8d3fd2e"
+    },
+    {
+        "id": 2,
+        "nom": "Cacera num 2",
+        "info": "Descripció cacera 2",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets2.jpg",
+		"datahora": "1334706479000",
+		"publica" : true,
+		"_usuari": "504307f410f5cd2ef8d3fd2e"
+    },
+    {
+        "id": 3,
+        "nom": "Cacera num 3",
+        "info": "Descripció cacera 3",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets3.jpg",
+		"datahora": "1340005679000",
+		"publica" : false,
+		"_usuari": "504307f410f5cd2ef8d3fd2e"
+    },
+    {
+        "id": 4,
+        "nom": "Cacera num 4",
+        "info": "Descripció cacera 4",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets4.jpg",
+		"datahora": "1341049679000",
+		"publica" : false,
+		"_usuari": "504307f410f5cd2ef8d3fd2e"
+    },
+    {
+        "id": 5,
+        "nom": "Cacera num 5",
+        "info": "Descripció cacera 5",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets5.jpg",
+		"datahora": "1341208079000",
+		"publica" : true,
+		"_usuari": "504307f410f5cd2ef8d3fd2e"
+    },
+    {
+        "id": 6,
+        "nom": "Cacera num 6",
+        "info": "Descripció cacera 6",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets.jpg",
+		"datahora": "1342054079000",
+		"publica" : true,
+		"_usuari": "504307f410f5cd2ef8d3fd2e"
+    },
+    {
+        "id": 7,
+        "nom": "Cacera num 7",
+        "info": "Descripció cacera 7",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets2.jpg",
+		"datahora": "1343774879000",
+		"publica" : true,
+		"_usuari": "504307f410f5cd2ef8d3fd2e"
+    },
+    {
+        "id": 8,
+        "nom": "Cacera num 8",
+        "info": "Descripció cacera 8",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets3.jpg",
+		"datahora": "1345416479000",
+		"publica" : true,
+		"_usuari": "504307f410f5cd2ef8d3fd2f"
+    },
+    {
+        "id": 9,
+        "nom": "Cacera num 9",
+        "info": "Descripció cacera 9",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets4.jpg",
+		"datahora": "1345926183722",
+		"publica" : false,
+		"_usuari": "504307f410f5cd2ef8d3fd2f"
+    },
+    {
+        "id": 10,
+        "nom": "Cacera num 10",
+        "info": "Descripció cacera 10",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets5.jpg",
+		"datahora": "1345934596000",
+		"publica" : false,
+		"_usuari": "504307f410f5cd2ef8d3fd2f"
+    }
+]

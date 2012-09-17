@@ -1,0 +1,18 @@
+﻿[
+    {
+        "nom": "Cacera num 11",
+        "info": "Descripció cacera 11",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets.jpg",
+		"datahora": "1345934606000",
+		"publica" : true,
+		"_usuari": "504307f410f5cd2ef8d3fd2e"
+    },
+    {
+        "nom": "Cacera num 12",
+        "info": "Descripció cacera 12",
+        "logo": "http://localhost/deBolets/resources/images/cacera_bolets2.jpg",
+		"datahora": "1334706479000",
+		"publica" : false,
+		"_usuari": "504307f410f5cd2ef8d3fd2f"
+    }
+]

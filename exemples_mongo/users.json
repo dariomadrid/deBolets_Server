@@ -1,0 +1,19 @@
+﻿[
+    {
+        "nom": "Darío Madrid Alonso",
+        "email": "dariomadrid@gmail.com",
+		"password": "secret",
+        "avatar": "https://lh4.googleusercontent.com/-1TyL-6cgA1E/AAAAAAAAAAI/AAAAAAAAAAA/BPVPDmrxI44/s27-c/photo.jpg",
+		"token": "",
+		"modified": "1319908696"
+    },
+    {
+        "nom": "David Mayo Zarzoso",
+        "email": "davidmayoz@gmail.com",
+		"password": "secret",
+        "avatar": "http://localhost/debolets/resources/images/nobody.jpg",
+		"token": "",
+		"modified": "1331008696"
+    }
+]
+/*https://lh4.googleusercontent.com/-1TyL-6cgA1E/AAAAAAAAAAI/AAAAAAAAAAA/BPVPDmrxI44/s27-c/photo.jpg*/

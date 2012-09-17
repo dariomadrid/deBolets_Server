@@ -1,27 +1,39 @@
 var CaceraModel = require('../model/cacera.js');
 
-exports.post = function(req, res) {
-	console.log("POST: Creaci� cacera.");
-    var cacera = new CaceraModel({id: req.body.id, nom: req.body.nom, info: req.body.info, logo: req.body.logo, datahora: req.body.datahora});
-    cacera.save(function (err) {
-        if (err) throw err;
-        console.log('Cacera saved.');
-        
-        res.send('Cacera saved.');
-    });
-}
-
 exports.save = function(req, res) {
-	console.log("POST: Creaci� cacera.");
-    /*var cacera = new CaceraModel({name: req.params.name, description: req.params.descr,
-        longitude: req.params.longitude, latitude: req.params.latitude});
-	*/	
+	console.log("POST: Creació cacera.");
+	
 	var cacera = new CaceraModel({
-    	id: req.body.id,
 		nom: req.body.nom,
 	    info: req.body.info,
 		logo: req.body.logo,
-	    datahora: req.body.datahora
+	    datahora: req.body.datahora,
+	//	posicions:[posicions],
+		publica: req.body.publica,
+		_usuari: req.body._usuari
+  	});
+    cacera.save(function (err) {
+        if (err) console.log("[E][Controlador Caceres] "+err);
+        console.log("[I][Controlador Caceres] Nova cacera: "+cacera._id);
+	    //res.send('Cacera saved.');
+		console.log(cacera);
+		res.contentType('json');
+        //res.send(req.query["callback"] +'({"result":' + JSON.stringify("ok") + '});');
+		res.send(cacera._id);
+    });
+}
+/* Funcio per proxy especial de caceres */
+exports.save2 = function(req, res) {
+	console.log("POST: Creació cacera local "+req.params._id+" .");
+
+	var cacera = new CaceraModel({
+		nom: req.body.nom,
+	    info: req.body.info,
+		logo: req.body.logo,
+	    datahora: req.body.datahora,
+		posicions: req.body.posicions,
+		publica: req.body.publica,
+		_usuari: req.body._usuari
   	});
     cacera.save(function (err) {
         if (err) throw err;
@@ -30,48 +42,53 @@ exports.save = function(req, res) {
     });
 }
 
+
 exports.list = function(req, res) {
     console.log("GET Llista caceres");
-	console.log("Date now="+Date.now());
-	//var url_parts = url.parse(req.url, true);
+
 	var page = req.query["page"];
 	var limit = req.query["limit"];
-	var start = req.query["start"];
-	
-	console.log("page="+page);
-	console.log("limit="+limit);
-	console.log("start="+start);	
+	var start = req.query["start"];	
 
-	/*CaceraModel.find("","",{skip: 1, limit: 10}, function(err, cac) {
-	res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
-        res.send(req.query["callback"] + '({"records":' +  JSON.stringify(cac) + '});');
-    });*/
-//	CaceraModel.find().sort('-datahora').skip(0,10).exec(function(err, cacera) {
-	CaceraModel.find().sort('-datahora').skip(start,start+limit).limit(limit).exec(function(err, cacera) {		
-		//Retornem jsonp
-	//	res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
-    //    res.send(req.query["callback"] + '({"records":' +  JSON.stringify(cacera) + '});');
-		//Retornem json normal
-		res.send(cacera);
-    });
+	CaceraModel.find().sort('-datahora')
+				.populate('_usuari', 'nom avatar')
+				.select('nom info logo datahora _usuari')
+				.skip(start,start+limit).limit(limit)
+				.exec(function(err, cacera) {		
+					//cacera.info = "daksjdklñasjdlkasjkldjas";
+					//Retornem jsonp
+					res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
+					res.contentType('json');
+					res.send(cacera);
+					//res.contentType('json');
+			        //res.send(req.query["callback"] + '({"records":' +  JSON.stringify(cacera) + '});');
+				});
 }
 
-exports.list2 = function(req, res) {
-    console.log("GET Llista caceres infinita");
-	//var url_parts = url.parse(req.url, true);
-	
-	if (req.query["last_displayed_date"] != null)
-		var last_displayed_date = req.query["last_displayed_date"];
-	else var last_displayed_date = Date.now();
-	console.log(last_displayed_date);
-	
-	CaceraModel.find().where('datahora').lt(last_displayed_date).sort('-datahora').exec(function(err, cacera) {
-		//Retornem jsonp
-		//res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
-        //res.send(req.query["callback"] + '({"records":' +  JSON.stringify(cacera) + '});');
-		//Retornem json normal
-		res.send(cacera);
-    });
+exports.list_comunitat = function(req, res) {
+    console.log("GET Llista caceres comunitat (públiques)");
+
+	var page = req.query["page"];
+	var limit = req.query["limit"];
+	var start = req.query["start"];	
+
+	// Allow Cross Domain Request from anywhere...
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+	CaceraModel.find().sort('-datahora').where('publica')
+				.equals(true).populate('_usuari', 'nom avatar')
+				.select('nom info logo datahora _usuari')
+				.skip(start,start+limit).limit(limit)
+				.exec(function(err, cacera) {		
+					cacera.info = "daksjdklñasjdlkasjkldjas";
+					//Retornem json
+					//res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
+					//res.send(cacera);
+					//Retornem jsonp
+					res.contentType('json');
+			        res.send(req.query["callback"] + '({"records":' +  JSON.stringify(cacera) + '});');
+				});
 }
 
 exports.show = (function(req, res) {
@@ -80,19 +97,49 @@ exports.show = (function(req, res) {
 		res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
 		res.send(req.query["callback"] +'({"records":' + JSON.stringify(cacera) + '});');
 		//res.send([{Dog: Cacera}]);
-    })
-});
-
-exports.delete = function(req, res) {
-    console.log("DELETE ALL caceres");
-	//var url_parts = url.parse(req.url, true);
-		
-	CaceraModel.remove(function(err) {
-		res.send("ALL Caceres deleted ok");
     });
+})
+
+exports.put = function (req, res) {
+	return CaceraModel.findById(req.params.id, function (err, cacera) {
+		cacera.nom = req.body.nom;
+		cacera.info = req.body.info;
+		cacera.logo = req.body.logo;
+		cacera.datahora = req.body.datahora;
+		cacera.posicions = req.body.posicions;
+		cacera.publica = req.body.publica;
+		cacera._usuari = req.body._usuari;
+		
+		return cacera.save(function (err) {
+			if (!err) {
+	    		console.log("[I][Controlador Caceres] Actualitzada cacera: "+req.params.id);
+				//return res.send(cacera);
+				res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
+				res.send(req.query["callback"] +'({"records":' + JSON.stringify(cacera) + '});');
+	  		} else {
+	    		console.log("[E][Controlador Caceres] "+err);
+	  		}
+		});
+	});
 }
 
-exports.esborrar = function(req, res) {
+exports.delete = function(req, res) {
+	console.log("DELETE Cacera: "+req.params.id)
+	return ProductModel.findById(req.params.id, function (err, product) {
+		return product.remove(function (err) {
+  			if (!err) {
+    			console.log("[I][Controlador Caceres] Esborrada cacera: "+req.params.id);
+    			//return res.send(cacera);
+				res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
+				res.send(req.query["callback"] +'({"records":' + JSON.stringify("ok") + '});');
+  			} else {
+    			console.log("[E][Controlador Caceres]: "+err);
+  			}
+		});
+	});
+}
+
+exports.delete_all_per_user = function(req, res) {
     console.log("DELETE ALL caceres");
 	//var url_parts = url.parse(req.url, true);
 		
