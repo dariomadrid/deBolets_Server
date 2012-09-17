@@ -16,6 +16,7 @@ var Posicions = new Schema({
 	longitud: { type: String },
 	titol: { type: String },
     url: { type: String },
+	bolet: { type: String },
 	datahora: { type: Date, default: Date.now }
 });
 */
